@@ -20,10 +20,13 @@
 					r.open('GET', '/api/' + id, true)
 					r.onreadystatechange = function() {
 						const resp = r.responseXML
-						if (r.readyState != 4 || r.status != 200
-							|| !resp) {
+						if (r.readyState != 4 || r.status != 200) {
+							return
+						}
+						if (!resp) {
 							const h4 = document.createElement('h4')
 							h4.textContent = id + ' が取得できませんでした。'
+							div.appendChild(h4)
 							return
 						}
 						const h4 = document.createElement('h4')
