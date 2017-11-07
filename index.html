@@ -18,18 +18,21 @@
 					r.open('GET', '/api/' + id, true)
 					r.onreadystatechange = function() {
 						if (r.readyState != 4 || r.status != 200) {
+							const h4 = document.createElement('h4')
+							h4.textContent = id + ' が取得できませんでした。'
 							return
 						}
-						console.log(r.responseXML)
 						const resp = r.responseXML
 						const h4 = document.createElement('h4')
-						h4.textContent = resp.querySelector('title').textContent
+						h4.textContent = id + '. ' +  resp.querySelector('title').textContent
 						const img = document.createElement('img')
 						img.setAttribute('src', resp.querySelector('thumbnail_url').textContent)
 						const p = document.createElement('p')
 						p.textContent = resp.querySelector('description').textContent
 
-						div.appendChild(h4).appendChild(img).appendChild(p)
+						div.appendChild(h4)
+						div.appendChild(img)
+						div.appendChild(p)
 					}
 					r.send();
 				})
@@ -40,7 +43,7 @@
 	<body>
 		<h3>動画情報取得したくない？</h3>
 		<form id="form">
-			ID(ex. sm9)のリスト
+			動画ID(ex. sm9)のリスト
 			<textarea id="textarea"></textarea>
 			<button>検索</button>
 		</form>
