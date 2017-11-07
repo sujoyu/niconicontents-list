@@ -5,12 +5,14 @@
 
 			const form = document.getElementById('form')
 			const textarea = document.getElementById('textarea')
+			const list = document.getElementById('list')
 
 			form.addEventListener('submit', function(ev) {
 				ev.preventDefault()
 				const ids = textarea.value.split('\n')
 				ids.forEach(function(id) {
 					const div = document.createElement('div')
+					list.appendChild(div)
 
 					var r = new XMLHttpRequest()
 					r.open('GET', '/api/' + id, true)
@@ -18,10 +20,16 @@
 						if (r.readyState != 4 || r.status != 200) {
 							return
 						}
-						console.log(r.responseText)
-						const div = document.createElement('div')
+						console.log(r.responseXML)
+						const resp = r.responseXML
+						const h4 = document.createElement('h4')
+						h4.innerText = resp.querySelector('title').innnerText
 						const img = document.createElement('img')
-						// img.setAttribute('src', )
+						img.setAttribute('src', resp.querySelector('thumbnail_url').innerText)
+						const p = document.createElement('p')
+						p.innerText = resp.querySelector('description')
+
+						div.appendChild(h4).appendChild(img).appendChild(p)
 					}
 					r.send();
 				})
