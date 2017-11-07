@@ -23,11 +23,11 @@
 						console.log(r.responseXML)
 						const resp = r.responseXML
 						const h4 = document.createElement('h4')
-						h4.innerText = resp.querySelector('title').innnerText
+						h4.textContent = resp.querySelector('title').textContent
 						const img = document.createElement('img')
-						img.setAttribute('src', resp.querySelector('thumbnail_url').innerText)
+						img.setAttribute('src', resp.querySelector('thumbnail_url').textContent)
 						const p = document.createElement('p')
-						p.innerText = resp.querySelector('description')
+						p.textContent = resp.querySelector('description').textContent
 
 						div.appendChild(h4).appendChild(img).appendChild(p)
 					}
