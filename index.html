@@ -23,7 +23,7 @@
 						if (r.readyState != 4 || r.status != 200) {
 							return
 						}
-						if (!resp) {
+						if (!resp || resp.querySelector('error code')) {
 							const h4 = document.createElement('h4')
 							h4.textContent = id + ' が取得できませんでした。'
 							div.appendChild(h4)
