@@ -17,6 +17,7 @@
 			-moz-border-radius:2px;
 			-webkit-border-radius:2px;
 			margin: 15px 0;
+			background-color: #ffffff;
 		}	
 		</style>
 
@@ -65,7 +66,7 @@
 						tags.textContent = 'タグ: '
 						Array.from(resp.querySelectorAll('tags tag'), function(tag) {
 							const span = document.createElement('span')
-							span.textContent = tag.textContent
+							span.textContent = ' ' + tag.textContent + ', '
 							tags.appendChild(span)
 						})
 						
