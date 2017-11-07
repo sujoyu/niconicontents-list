@@ -10,7 +10,9 @@
 			form.addEventListener('submit', function(ev) {
 				ev.preventDefault()
 				const ids = textarea.value.split('\n')
+				console.log(ids)
 				ids.forEach(function(id) {
+					console.log(id)
 					const div = document.createElement('div')
 					list.appendChild(div)
 
