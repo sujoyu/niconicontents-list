@@ -8,20 +8,22 @@
 			const list = document.getElementById('list')
 
 			form.addEventListener('submit', function(ev) {
+				list.innerHTML = ""
+
 				ev.preventDefault()
 				const ids = textarea.value.split('\n')
-				console.log(ids)
 				ids.forEach(function(id) {
-					console.log(id)
 					const div = document.createElement('div')
 					list.appendChild(div)
 
 					var r = new XMLHttpRequest()
 					r.open('GET', '/api/' + id, true)
 					r.onreadystatechange = function() {
-						if (r.readyState != 4 || r.status != 200) {
+						const code = resp.querySelector('error code')
+						if (r.readyState != 4 || r.status != 200
+							|| code) {
 							const h4 = document.createElement('h4')
-							h4.textContent = id + ' が取得できませんでした。'
+							h4.textContent = id + ' が取得できませんでした。エラーコード(' + code + ')'
 							return
 						}
 						const resp = r.responseXML
