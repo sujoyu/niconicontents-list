@@ -35,6 +35,10 @@
 				
 				const ids = textarea.value.split('\n')
 				ids.forEach(function(id) {
+					if (!id || id.length === 0) {
+						return
+					}
+
 					const div = document.createElement('div')
 					div.setAttribute('class', 'video')
 					list.appendChild(div)
@@ -91,7 +95,7 @@
 	<body>
 		<h3>動画情報取得したくない？</h3>
 		<form id="form">
-			動画ID(ex. sm9)のリスト(改行区切り)
+			動画ID(ex. sm9)のリスト(改行区切り)<br>
 			<textarea id="textarea"></textarea>
 			<button>検索</button>
 		</form>
