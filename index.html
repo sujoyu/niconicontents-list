@@ -13,7 +13,7 @@
 					const div = document.createElement('div')
 
 					var r = new XMLHttpRequest()
-					r.open('GET', 'http://ext.nicovideo.jp/api/getthumbinfo/' + id, true)
+					r.open('GET', '/api/' + id, true)
 					r.onreadystatechange = function() {
 						if (r.readyState != 4 || r.status != 200) {
 							return
@@ -23,7 +23,7 @@
 						const img = document.createElement('img')
 						// img.setAttribute('src', )
 					}
-					r.send("q=" + id);
+					r.send();
 				})
 			})
 		})
