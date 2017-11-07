@@ -19,6 +19,7 @@
 					var r = new XMLHttpRequest()
 					r.open('GET', '/api/' + id, true)
 					r.onreadystatechange = function() {
+						const resp = r.responseXML
 						const code = resp.querySelector('error code')
 						if (r.readyState != 4 || r.status != 200
 							|| code) {
@@ -26,7 +27,6 @@
 							h4.textContent = id + ' が取得できませんでした。エラーコード(' + code + ')'
 							return
 						}
-						const resp = r.responseXML
 						const h4 = document.createElement('h4')
 						h4.textContent = id + '. ' +  resp.querySelector('title').textContent
 						const img = document.createElement('img')
