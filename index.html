@@ -1,5 +1,25 @@
 <html lang="ja">
 	<head>
+
+		<style>
+		#list {
+			padding: 20px;
+			background-color: #0f0f0f;
+		}
+		#list .video {
+			/* box-shadow */
+			box-shadow:0px 0px 4px 0px #d7d7e2;
+			-moz-box-shadow:0px 0px 4px 0px #d7d7e2;
+			-webkit-box-shadow:0px 0px 4px 0px #d7d7e2;
+
+			/* border-radius */
+			border-radius:2px;
+			-moz-border-radius:2px;
+			-webkit-border-radius:2px;
+			margin: 15px 0;
+		}	
+		</style>
+
 		<script>
 			document.addEventListener('DOMContentLoaded', function() {
 
@@ -8,12 +28,13 @@
 			const list = document.getElementById('list')
 
 			form.addEventListener('submit', function(ev) {
-				list.innerHTML = ""
-
 				ev.preventDefault()
+				list.innerHTML = ""
+				
 				const ids = textarea.value.split('\n')
 				ids.forEach(function(id) {
 					const div = document.createElement('div')
+					div.setAttribute('class', 'video')
 					list.appendChild(div)
 
 					var r = new XMLHttpRequest()
@@ -33,11 +54,30 @@
 						h4.textContent = id + '. ' +  resp.querySelector('title').textContent
 						const img = document.createElement('img')
 						img.setAttribute('src', resp.querySelector('thumbnail_url').textContent)
+						const view = document.createElement('span')
+						view.textContent = ' 視聴数: ' + resp.querySelector('view_counter').textContent
+						const comment = document.createElement('span')
+						comment.textContent = ' コメント数: ' + resp.querySelector('comment_num').textContent
+						const mylist = document.createElement('span')
+						mylist.textContent = ' マイリスト数: ' + resp.querySelector('mylist_counter').textContent
+
+						const tags = document.createElement('div')
+						tags.textContent = 'タグ: '
+						Array.from(resp.querySelectorAll('tags tag'), function(tag) {
+							const span = document.createElement('span')
+							span.textContent = tag.textContent
+							tags.appendChild(span)
+						})
+						
 						const p = document.createElement('p')
 						p.textContent = resp.querySelector('description').textContent
 
 						div.appendChild(h4)
+						div.appendChild(tags)
 						div.appendChild(img)
+						div.appendChild(view)
+						div.appendChild(comment)
+						div.appendChild(mylist)
 						div.appendChild(p)
 					}
 					r.send();
@@ -49,7 +89,7 @@
 	<body>
 		<h3>動画情報取得したくない？</h3>
 		<form id="form">
-			動画ID(ex. sm9)のリスト
+			動画ID(ex. sm9)のリスト(改行区切り)
 			<textarea id="textarea"></textarea>
 			<button>検索</button>
 		</form>
